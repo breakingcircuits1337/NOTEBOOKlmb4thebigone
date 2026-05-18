@@ -193,7 +193,7 @@ When to use:
 
 ### Built-in Transformations
 
-Open Notebook comes with presets:
+BCs BookNG comes with presets:
 
 **Summary**
 ```

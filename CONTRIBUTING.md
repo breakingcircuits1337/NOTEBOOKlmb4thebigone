@@ -1,4 +1,4 @@
-# Contributing to Open Notebook
+# Contributing to BCs BookNG
 
 **📍 This file has moved!**
 

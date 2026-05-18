@@ -11,7 +11,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/lfnovo/open-notebook">
+  <a href="https://github.com/breakingcircuits1337/BCs-Book_NG">
     <img src="docs/assets/hero.svg" alt="Logo">
   </a>
 
@@ -40,14 +40,14 @@
 
 <div align="center">
   <!-- Keep these links. Translations will automatically update with the README. -->
-  <a href="https://zdoc.app/de/lfnovo/open-notebook">Deutsch</a> | 
-  <a href="https://zdoc.app/es/lfnovo/open-notebook">Español</a> | 
-  <a href="https://zdoc.app/fr/lfnovo/open-notebook">français</a> | 
-  <a href="https://zdoc.app/ja/lfnovo/open-notebook">日本語</a> | 
-  <a href="https://zdoc.app/ko/lfnovo/open-notebook">한국어</a> | 
-  <a href="https://zdoc.app/pt/lfnovo/open-notebook">Português</a> | 
-  <a href="https://zdoc.app/ru/lfnovo/open-notebook">Русский</a> | 
-  <a href="https://zdoc.app/zh/lfnovo/open-notebook">中文</a>
+  <a href="https://zdoc.app/de/breakingcircuits1337/BCs-Book_NG">Deutsch</a> | 
+  <a href="https://zdoc.app/es/breakingcircuits1337/BCs-Book_NG">Español</a> | 
+  <a href="https://zdoc.app/fr/breakingcircuits1337/BCs-Book_NG">français</a> | 
+  <a href="https://zdoc.app/ja/breakingcircuits1337/BCs-Book_NG">日本語</a> | 
+  <a href="https://zdoc.app/ko/breakingcircuits1337/BCs-Book_NG">한국어</a> | 
+  <a href="https://zdoc.app/pt/breakingcircuits1337/BCs-Book_NG">Português</a> | 
+  <a href="https://zdoc.app/ru/breakingcircuits1337/BCs-Book_NG">Русский</a> | 
+  <a href="https://zdoc.app/zh/breakingcircuits1337/BCs-Book_NG">中文</a>
 </div>
 
 ## BCs BookNG — A private, multi-model, 100% local, full-featured alternative to Notebook LM
@@ -135,7 +135,7 @@ Choose your installation method:
 **Quick Start:**
 
 ```bash
-git clone https://github.com/lfnovo/open-notebook.git
+git clone https://github.com/breakingcircuits1337/BCs-Book_NG.git
 uv sync
 make start-all
 ```
@@ -150,8 +150,8 @@ Access: http://localhost:3000 (dev) or http://localhost:8502 (production)
 
 **One-time setup:**
 ```bash
-git clone https://github.com/lfnovo/open-notebook.git
-cd open-notebook
+git clone https://github.com/breakingcircuits1337/BCs-Book_NG.git
+cd BCs-Book_NG
 bash scripts/setup-native.sh   # installs uv, SurrealDB binary, Python venv, Node deps
 # then add at least one AI provider key to .env
 ```
@@ -180,13 +180,13 @@ bash scripts/launch-native.sh --stop   # or: make stop-native
 - **🤖 AI Installation Assistant**: [CustomGPT to help you install](https://chatgpt.com/g/g-68776e2765b48191bd1bae3f30212631-open-notebook-installation-assistant)
 - **🆘 Troubleshooting**: [5-minute troubleshooting guide](docs/6-TROUBLESHOOTING/quick-fixes.md)
 - **💬 Community Support**: [Discord Server](https://discord.gg/37XJPXfz2w)
-- **🐛 Report Issues**: [GitHub Issues](https://github.com/lfnovo/open-notebook/issues)
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/breakingcircuits1337/BCs-Book_NG/issues)
 
 ---
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=lfnovo/open-notebook&type=date&legend=top-left)](https://www.star-history.com/#lfnovo/open-notebook&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=breakingcircuits1337/BCs-Book_NG&type=date&legend=top-left)](https://www.star-history.com/#breakingcircuits1337/BCs-Book_NG&type=date&legend=top-left)
 
 
 ## Media Generation Provider Matrix
@@ -239,6 +239,7 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **🔍 Intelligent Search**: Full-text and vector search across all your content
 - **💬 Context-Aware Chat**: AI conversations powered by your research materials
 - **📝 AI-Assisted Notes**: Generate insights or write notes manually
+- **🗨️ Source Chat**: Chat directly with a single source document — ask questions scoped to one PDF, web page, or file without full-notebook context
 
 ### Advanced Features
 - **⚡ Reasoning Model Support**: Full support for thinking models like DeepSeek-R1 and Qwen3
@@ -311,7 +312,7 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **Enhanced Citations**: Improved layout and finer control for source citations
 - **Multiple Chat Sessions**: Manage different conversations within notebooks
 
-See the [open issues](https://github.com/lfnovo/open-notebook/issues) for a full list of proposed features and known issues.
+See the [open issues](https://github.com/breakingcircuits1337/BCs-Book_NG/issues) for a full list of proposed features and known issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -326,8 +327,8 @@ See the [open issues](https://github.com/lfnovo/open-notebook/issues) for a full
 
 ### Join the Community
 - 💬 **[Discord Server](https://discord.gg/37XJPXfz2w)** - Get help, share ideas, and connect with other users
-- 🐛 **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Report bugs and request features
-- ⭐ **Star this repo** - Show your support and help others discover Open Notebook
+- 🐛 **[GitHub Issues](https://github.com/breakingcircuits1337/BCs-Book_NG/issues)** - Report bugs and request features
+- ⭐ **Star this repo** - Show your support and help others discover BCs BookNG
 
 ### Contributing
 We welcome contributions! We're especially looking for help with:
@@ -353,24 +354,24 @@ BCs BookNG is a fork of [Open Notebook](https://github.com/lfnovo/open-notebook)
 
 **Community Support**:
 - 💬 [Discord Server](https://discord.gg/37XJPXfz2w) - Get help, share ideas, and connect with users
-- 🐛 [GitHub Issues](https://github.com/lfnovo/open-notebook/issues) - Report bugs and request features
-- 🌐 [Website](https://www.open-notebook.ai) - Learn more about the project
+- 🐛 [GitHub Issues](https://github.com/breakingcircuits1337/BCs-Book_NG/issues) - Report bugs and request features
+- 🌐 [Website](https://www.open-notebook.ai) - Learn more about the upstream project
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/lfnovo/open-notebook.svg?style=for-the-badge
-[contributors-url]: https://github.com/lfnovo/open-notebook/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/lfnovo/open-notebook.svg?style=for-the-badge
-[forks-url]: https://github.com/lfnovo/open-notebook/network/members
-[stars-shield]: https://img.shields.io/github/stars/lfnovo/open-notebook.svg?style=for-the-badge
-[stars-url]: https://github.com/lfnovo/open-notebook/stargazers
-[issues-shield]: https://img.shields.io/github/issues/lfnovo/open-notebook.svg?style=for-the-badge
-[issues-url]: https://github.com/lfnovo/open-notebook/issues
-[license-shield]: https://img.shields.io/github/license/lfnovo/open-notebook.svg?style=for-the-badge
-[license-url]: https://github.com/lfnovo/open-notebook/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/breakingcircuits1337/BCs-Book_NG.svg?style=for-the-badge
+[contributors-url]: https://github.com/breakingcircuits1337/BCs-Book_NG/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/breakingcircuits1337/BCs-Book_NG.svg?style=for-the-badge
+[forks-url]: https://github.com/breakingcircuits1337/BCs-Book_NG/network/members
+[stars-shield]: https://img.shields.io/github/stars/breakingcircuits1337/BCs-Book_NG.svg?style=for-the-badge
+[stars-url]: https://github.com/breakingcircuits1337/BCs-Book_NG/stargazers
+[issues-shield]: https://img.shields.io/github/issues/breakingcircuits1337/BCs-Book_NG.svg?style=for-the-badge
+[issues-url]: https://github.com/breakingcircuits1337/BCs-Book_NG/issues
+[license-shield]: https://img.shields.io/github/license/breakingcircuits1337/BCs-Book_NG.svg?style=for-the-badge
+[license-url]: https://github.com/breakingcircuits1337/BCs-Book_NG/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/lfnovo
 [product-screenshot]: images/screenshot.png

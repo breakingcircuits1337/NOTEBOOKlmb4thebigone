@@ -124,7 +124,7 @@ export function AppSidebar() {
             <div className="relative flex items-center justify-center w-full">
               <Image
                 src="/logo.svg"
-                alt="Open Notebook"
+                alt="BCs BookNG"
                 width={32}
                 height={32}
                 className="transition-opacity group-hover:opacity-0"

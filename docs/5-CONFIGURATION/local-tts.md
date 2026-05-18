@@ -66,11 +66,11 @@ curl "http://localhost:8969/v1/audio/speech" -s \
 
 Play `test.mp3` to verify.
 
-### Step 4: Configure Open Notebook
+### Step 4: Configure BCs BookNG
 
 **Docker deployment:**
 ```yaml
-# In your Open Notebook docker-compose.yml
+# In your BCs BookNG docker-compose.yml
 environment:
   - OPENAI_COMPATIBLE_BASE_URL_TTS=http://host.docker.internal:8969/v1
 ```
@@ -80,7 +80,7 @@ environment:
 export OPENAI_COMPATIBLE_BASE_URL_TTS=http://localhost:8969/v1
 ```
 
-### Step 5: Add Model in Open Notebook
+### Step 5: Add Model in BCs BookNG
 
 1. Go to **Settings** → **Models**
 2. Click **Add Model** in Text-to-Speech section
@@ -163,13 +163,13 @@ volumes:
 
 ## Docker Networking
 
-### Open Notebook in Docker (macOS/Windows)
+### BCs BookNG in Docker (macOS/Windows)
 
 ```bash
 OPENAI_COMPATIBLE_BASE_URL_TTS=http://host.docker.internal:8969/v1
 ```
 
-### Open Notebook in Docker (Linux)
+### BCs BookNG in Docker (Linux)
 
 ```bash
 # Option 1: Docker bridge IP
@@ -185,7 +185,7 @@ Run Speaches on a different machine:
 
 ```bash
 # On server, bind to all interfaces
-# Then in Open Notebook:
+# Then in BCs BookNG:
 OPENAI_COMPATIBLE_BASE_URL_TTS=http://server-ip:8969/v1
 ```
 
@@ -232,7 +232,7 @@ docker compose down && docker compose up -d
 # Test Speaches is running
 curl http://localhost:8969/v1/models
 
-# From inside Open Notebook container
+# From inside BCs BookNG container
 docker exec -it open-notebook curl http://host.docker.internal:8969/v1/models
 ```
 

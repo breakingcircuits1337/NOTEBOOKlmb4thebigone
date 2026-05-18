@@ -1,6 +1,6 @@
 # Quick Start - Local & Private (5 minutes)
 
-Get Open Notebook running with **100% local AI** using Ollama. No cloud API keys needed, completely private.
+Get BCs BookNG running with **100% local AI** using Ollama. No cloud API keys needed, completely private.
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ services:
       - ./surreal_data:/mydata
 
   open_notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     ports:
       - "8502:8502"  # Web UI (React frontend)
@@ -108,14 +108,14 @@ This downloads the model (will take 1-5 minutes depending on your internet).
 
 ---
 
-## Step 5: Access Open Notebook (instant)
+## Step 5: Access BCs BookNG (instant)
 
 Open your browser:
 ```
 http://localhost:8502
 ```
 
-You should see the Open Notebook interface.
+You should see the BCs BookNG interface.
 
 ---
 

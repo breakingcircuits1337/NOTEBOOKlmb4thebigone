@@ -1,6 +1,6 @@
 # Quick Start - Cloud AI Providers (5 minutes)
 
-Get Open Notebook running with **Anthropic, Google, Groq, or other cloud providers**. Same simplicity as OpenAI, with more choices.
+Get BCs BookNG running with **Anthropic, Google, Groq, or other cloud providers**. Same simplicity as OpenAI, with more choices.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ services:
       - ./surreal_data:/mydata
 
   open_notebook:
-    image: lfnovo/open_notebook:v1-latest
+    image: breakingcircuits1337/bcs-book-ng:v1-latest
     pull_policy: always
     ports:
       - "8502:8502"  # Web UI
@@ -88,14 +88,14 @@ Wait 15-20 seconds for services to start.
 
 ---
 
-## Step 3: Access Open Notebook (instant)
+## Step 3: Access BCs BookNG (instant)
 
 Open your browser:
 ```
 http://localhost:8502
 ```
 
-You should see the Open Notebook interface!
+You should see the BCs BookNG interface!
 
 ---
 

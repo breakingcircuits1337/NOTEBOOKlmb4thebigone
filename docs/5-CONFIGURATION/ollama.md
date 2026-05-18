@@ -1,6 +1,6 @@
 # Ollama Setup Guide
 
-Ollama provides free, local AI models that run on your own hardware. This guide covers everything you need to know about setting up Ollama with Open Notebook, including different deployment scenarios and network configurations.
+Ollama provides free, local AI models that run on your own hardware. This guide covers everything you need to know about setting up Ollama with BCs BookNG, including different deployment scenarios and network configurations.
 
 ## Why Choose Ollama?
 
@@ -36,7 +36,7 @@ ollama pull phi4              # Microsoft's efficient model
 ollama pull mxbai-embed-large  # Best embedding model for Ollama
 ```
 
-### 3. Configure Open Notebook
+### 3. Configure BCs BookNG
 
 **For local installation:**
 ```bash
@@ -50,11 +50,11 @@ export OLLAMA_API_BASE=http://host.docker.internal:11434
 
 ## Network Configuration Guide
 
-The `OLLAMA_API_BASE` environment variable tells Open Notebook where to find your Ollama server. The correct value depends on your deployment scenario:
+The `OLLAMA_API_BASE` environment variable tells BCs BookNG where to find your Ollama server. The correct value depends on your deployment scenario:
 
 ### Scenario 1: Local Installation (Same Machine)
 
-When both Open Notebook and Ollama run directly on your machine:
+When both BCs BookNG and Ollama run directly on your machine:
 
 ```bash
 export OLLAMA_API_BASE=http://localhost:11434
@@ -66,9 +66,9 @@ export OLLAMA_API_BASE=http://127.0.0.1:11434
 - **localhost**: Recommended, works with most configurations
 - **127.0.0.1**: Use if you have DNS resolution issues with localhost
 
-### Scenario 2: Open Notebook in Docker, Ollama on Host
+### Scenario 2: BCs BookNG in Docker, Ollama on Host
 
-When Open Notebook runs in Docker but Ollama runs on your host machine:
+When BCs BookNG runs in Docker but Ollama runs on your host machine:
 
 ```bash
 export OLLAMA_API_BASE=http://host.docker.internal:11434
@@ -93,7 +93,7 @@ ollama serve
 
 ### Scenario 3: Both in Docker (Same Compose)
 
-When both Open Notebook and Ollama run in the same Docker Compose stack:
+When both BCs BookNG and Ollama run in the same Docker Compose stack:
 
 ```bash
 export OLLAMA_API_BASE=http://ollama:11434
@@ -105,7 +105,7 @@ export OLLAMA_API_BASE=http://ollama:11434
 version: '3.8'
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     ports:
       - "8502:8502"
@@ -156,7 +156,7 @@ If you've configured Ollama to use a different port:
 # Start Ollama on custom port
 OLLAMA_HOST=0.0.0.0:8080 ollama serve
 
-# Configure Open Notebook
+# Configure BCs BookNG
 export OLLAMA_API_BASE=http://localhost:8080
 ```
 
@@ -237,7 +237,7 @@ ollama pull qwen3
 
 **⚠️ IMPORTANT: Model names must exactly match the output of `ollama list`**
 
-This is the most common cause of "Failed to send message" errors. Open Notebook requires the **exact model name** as it appears in Ollama.
+This is the most common cause of "Failed to send message" errors. BCs BookNG requires the **exact model name** as it appears in Ollama.
 
 **Step 1: Get the exact model name**
 ```bash
@@ -252,7 +252,7 @@ gemma3:12b                  f4031aab637d    8.1 GB    2 months ago
 qwen3:32b                   030ee887880f    20 GB     9 days ago
 ```
 
-**Step 2: Use the exact name when adding the model in Open Notebook**
+**Step 2: Use the exact name when adding the model in BCs BookNG**
 
 | ✅ Correct | ❌ Wrong |
 |-----------|----------|
@@ -260,9 +260,9 @@ qwen3:32b                   030ee887880f    20 GB     9 days ago
 | `qwen3:32b` | `qwen3-32b` (wrong format) |
 | `mxbai-embed-large:latest` | `mxbai-embed-large` (missing tag) |
 
-**Note:** Some models use `:latest` as the default tag. If `ollama list` shows `model:latest`, you must use `model:latest` in Open Notebook, not just `model`.
+**Note:** Some models use `:latest` as the default tag. If `ollama list` shows `model:latest`, you must use `model:latest` in BCs BookNG, not just `model`.
 
-**Step 3: Configure in Open Notebook**
+**Step 3: Configure in BCs BookNG**
 
 1. Go to **Settings → Models**
 2. Click **Add Model**
@@ -274,7 +274,7 @@ qwen3:32b                   030ee887880f    20 GB     9 days ago
 
 ### Common Issues
 
-**1. "Ollama unavailable" in Open Notebook**
+**1. "Ollama unavailable" in BCs BookNG**
 
 **Check Ollama is running:**
 ```bash
@@ -288,12 +288,12 @@ echo $OLLAMA_API_BASE
 
 **⚠️ IMPORTANT: Enable external connections (most common fix):**
 ```bash
-# If Open Notebook runs in Docker or on a different machine,
+# If BCs BookNG runs in Docker or on a different machine,
 # Ollama must bind to all interfaces, not just localhost
 export OLLAMA_HOST=0.0.0.0:11434
 ollama serve
 ```
-> **Why this is needed:** By default, Ollama only accepts connections from `localhost` (127.0.0.1). When Open Notebook runs in Docker or on a different machine, it can't reach Ollama unless you configure `OLLAMA_HOST=0.0.0.0:11434` to accept external connections.
+> **Why this is needed:** By default, Ollama only accepts connections from `localhost` (127.0.0.1). When BCs BookNG runs in Docker or on a different machine, it can't reach Ollama unless you configure `OLLAMA_HOST=0.0.0.0:11434` to accept external connections.
 
 **Restart Ollama:**
 ```bash
@@ -308,7 +308,7 @@ ollama serve
 
 **2. Docker networking issues**
 
-**From inside Open Notebook container, test Ollama:**
+**From inside BCs BookNG container, test Ollama:**
 ```bash
 # Get into container
 docker exec -it open-notebook bash
@@ -372,10 +372,10 @@ Error executing chat: Model is not a LanguageModel: None
 
 **Causes (in order of likelihood):**
 
-1. **Model name mismatch**: The model name in Open Notebook doesn't exactly match `ollama list`
+1. **Model name mismatch**: The model name in BCs BookNG doesn't exactly match `ollama list`
 2. **No default model configured**: You haven't set a default chat model in Settings → Models
-3. **Model was deleted**: You removed the model from Ollama but didn't update Open Notebook's defaults
-4. **Model record deleted**: The model was removed from Open Notebook but is still set as default
+3. **Model was deleted**: You removed the model from Ollama but didn't update BCs BookNG's defaults
+4. **Model record deleted**: The model was removed from BCs BookNG but is still set as default
 
 **Solutions:**
 
@@ -384,7 +384,7 @@ Error executing chat: Model is not a LanguageModel: None
 # Get exact model names from Ollama
 ollama list
 
-# Compare with what's configured in Open Notebook
+# Compare with what's configured in BCs BookNG
 # Go to Settings → Models and verify the names match EXACTLY
 ```
 
@@ -396,7 +396,7 @@ ollama list
 
 **Check 3: Refresh after changes**
 If you've added/removed models in Ollama:
-1. Refresh the Open Notebook page
+1. Refresh the BCs BookNG page
 2. Go to Settings → Models
 3. Re-add any missing models with exact names from `ollama list`
 4. Re-select default models if needed
@@ -412,7 +412,7 @@ ollama run gemma3:12b "Hello, world"
 **1. Host networking on Linux:**
 ```bash
 # Use host networking if host.docker.internal doesn't work
-docker run --network host lfnovo/open_notebook:v1-latest-single
+docker run --network host breakingcircuits1337/bcs-book-ng:v1-latest-single
 export OLLAMA_API_BASE=http://localhost:11434
 ```
 
@@ -511,7 +511,7 @@ export OLLAMA_MAX_QUEUE=512            # Request queue size
 export OLLAMA_NUM_PARALLEL=4           # Parallel request handling
 export OLLAMA_FLASH_ATTENTION=1        # Enable flash attention (if supported)
 
-# Open Notebook configuration
+# BCs BookNG configuration
 export OLLAMA_API_BASE=http://localhost:11434
 ```
 
@@ -541,7 +541,7 @@ export ESPERANTO_SSL_VERIFY=false
 ```yaml
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - OLLAMA_API_BASE=https://ollama.local:11434
@@ -571,7 +571,7 @@ EOF
 ollama create my-research-model -f Modelfile
 ```
 
-**Use in Open Notebook:**
+**Use in BCs BookNG:**
 1. Go to Models
 2. Add new model: `my-research-model`
 3. Set as default for specific tasks
@@ -701,7 +701,7 @@ fi
 **Community Resources:**
 - [Ollama GitHub](https://github.com/jmorganca/ollama) - Official repository
 - [Ollama Discord](https://discord.gg/ollama) - Community support
-- [Open Notebook Discord](https://discord.gg/37XJPXfz2w) - Integration help
+- [BCs BookNG Discord](https://discord.gg/37XJPXfz2w) - Integration help
 
 **Debugging Resources:**
 - Check Ollama logs for error messages
@@ -709,4 +709,4 @@ fi
 - Verify environment variables
 - Monitor system resources
 
-This comprehensive guide should help you successfully deploy and optimize Ollama with Open Notebook. Start with the Quick Start section and refer to specific scenarios as needed.
+This comprehensive guide should help you successfully deploy and optimize Ollama with BCs BookNG. Start with the Quick Start section and refer to specific scenarios as needed.

@@ -2,7 +2,7 @@
 
 Multi-container setup with separate services. **Best for most users.**
 
-> **Alternative Registry:** All images are available on both Docker Hub (`lfnovo/open_notebook`) and GitHub Container Registry (`ghcr.io/lfnovo/open-notebook`). Use GHCR if Docker Hub is blocked or you prefer GitHub-native workflows.
+> **Alternative Registry:** All images are available on both Docker Hub (`breakingcircuits1337/bcs-book-ng`) and GitHub Container Registry (`ghcr.io/breakingcircuits1337/bcs-book-ng`). Use GHCR if Docker Hub is blocked or you prefer GitHub-native workflows.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ services:
       - ./surreal_data:/mydata
 
   open_notebook:
-    image: lfnovo/open_notebook:v1-latest
+    image: breakingcircuits1337/bcs-book-ng:v1-latest
     pull_policy: always
     ports:
       - "8502:8502"  # Web UI
@@ -110,7 +110,7 @@ Open browser to:
 http://localhost:8502
 ```
 
-You should see the Open Notebook interface!
+You should see the BCs BookNG interface!
 
 ---
 
@@ -121,7 +121,7 @@ You should see the Open Notebook interface!
 3. Description: "Getting started"
 4. Click **Create**
 
-Done! You now have a fully working Open Notebook instance. 🎉
+Done! You now have a fully working BCs BookNG instance. 🎉
 
 ---
 
@@ -301,13 +301,13 @@ docker compose up -d
 ## Production Deployment
 
 For production use, see:
-- [Security Hardening](https://github.com/lfnovo/open-notebook/blob/main/docs/deployment/security.md)
-- [Reverse Proxy](https://github.com/lfnovo/open-notebook/blob/main/docs/deployment/reverse-proxy.md)
+- [Security Hardening](https://github.com/breakingcircuits1337/BCs-Book_NG/blob/main/docs/deployment/security.md)
+- [Reverse Proxy](https://github.com/breakingcircuits1337/BCs-Book_NG/blob/main/docs/deployment/reverse-proxy.md)
 
 ---
 
 ## Getting Help
 
 - **Discord**: [Community support](https://discord.gg/37XJPXfz2w)
-- **Issues**: [GitHub Issues](https://github.com/lfnovo/open-notebook/issues)
+- **Issues**: [GitHub Issues](https://github.com/breakingcircuits1337/BCs-Book_NG/issues)
 - **Docs**: [Full documentation](../index.md)

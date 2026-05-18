@@ -1,6 +1,6 @@
 # Security Configuration
 
-Protect your Open Notebook deployment with password authentication and production hardening.
+Protect your BCs BookNG deployment with password authentication and production hardening.
 
 ---
 
@@ -26,7 +26,7 @@ Protect your Open Notebook deployment with password authentication and productio
 # docker-compose.yml
 services:
   open_notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - OPENAI_API_KEY=sk-...
@@ -186,7 +186,7 @@ async function getNotebooks() {
 ```yaml
 services:
   open_notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     ports:
       - "127.0.0.1:8502:8502"  # Bind to localhost only
@@ -229,7 +229,7 @@ See [Reverse Proxy Configuration](reverse-proxy.md) for complete nginx/Caddy/Tra
 
 ## Security Limitations
 
-Open Notebook's password protection provides **basic access control**, not enterprise-grade security:
+BCs BookNG's password protection provides **basic access control**, not enterprise-grade security:
 
 | Feature | Status |
 |---------|--------|

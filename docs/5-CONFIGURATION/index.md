@@ -1,6 +1,6 @@
 # Configuration - Essential Settings
 
-Configuration is how you customize Open Notebook for your specific setup. This section covers what you need to know.
+Configuration is how you customize BCs BookNG for your specific setup. This section covers what you need to know.
 
 ---
 
@@ -46,7 +46,7 @@ Use the right file depending on your setup.
 
 ### `.env` (Local Development)
 
-You will only use .env if you are running Open Notebook locally.
+You will only use .env if you are running BCs BookNG locally.
 
 ```
 Located in: project root

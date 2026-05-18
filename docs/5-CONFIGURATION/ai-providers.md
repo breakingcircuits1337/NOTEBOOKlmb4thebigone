@@ -26,7 +26,7 @@ Complete setup instructions for each AI provider. Pick the one you're using.
 OPENAI_API_KEY=sk-proj-xxxxx
 ```
 
-**Available Models (in Open Notebook):**
+**Available Models (in BCs BookNG):**
 - `gpt-4o` — Best quality, fast (latest version)
 - `gpt-4o-mini` — Fast, cheap, good for testing
 - `o1` — Advanced reasoning model (slower, more expensive)
@@ -428,7 +428,7 @@ AZURE_OPENAI_API_VERSION_LLM=2024-12-01-preview
 
 ## Embeddings (For Search/Semantic Features)
 
-By default, Open Notebook uses the LLM provider's embeddings. To use a different provider:
+By default, BCs BookNG uses the LLM provider's embeddings. To use a different provider:
 
 ### OpenAI Embeddings (Default)
 ```
@@ -478,7 +478,7 @@ Use OpenAI
 2. **Get API key** (if cloud) or install locally (if Ollama)
 3. **Add to .env**
 4. **Restart services**
-5. **Go to Settings → Models** in Open Notebook
+5. **Go to Settings → Models** in BCs BookNG
 6. **Verify it works** with a test chat
 
 Done!

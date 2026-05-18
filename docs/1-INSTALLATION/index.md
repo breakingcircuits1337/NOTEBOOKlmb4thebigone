@@ -135,7 +135,7 @@ Once you're up and running:
 ## Need Help?
 
 - **Discord**: [Join community](https://discord.gg/37XJPXfz2w)
-- **GitHub Issues**: [Report problems](https://github.com/lfnovo/open-notebook/issues)
+- **GitHub Issues**: [Report problems](https://github.com/breakingcircuits1337/BCs-Book_NG/issues)
 - **Docs**: See [Full Documentation](../index.md)
 
 ---
@@ -144,9 +144,9 @@ Once you're up and running:
 
 Installing for production use? See additional resources:
 
-- [Security Hardening](https://github.com/lfnovo/open-notebook/blob/main/docs/deployment/security.md)
-- [Reverse Proxy Setup](https://github.com/lfnovo/open-notebook/blob/main/docs/deployment/reverse-proxy.md)
-- [Performance Tuning](https://github.com/lfnovo/open-notebook/blob/main/docs/deployment/retry-configuration.md)
+- [Security Hardening](https://github.com/breakingcircuits1337/BCs-Book_NG/blob/main/docs/deployment/security.md)
+- [Reverse Proxy Setup](https://github.com/breakingcircuits1337/BCs-Book_NG/blob/main/docs/deployment/reverse-proxy.md)
+- [Performance Tuning](https://github.com/breakingcircuits1337/BCs-Book_NG/blob/main/docs/deployment/retry-configuration.md)
 
 ---
 

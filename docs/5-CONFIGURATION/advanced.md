@@ -109,7 +109,7 @@ For debugging LLM workflows:
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 LANGCHAIN_API_KEY=your-key
-LANGCHAIN_PROJECT="Open Notebook"
+LANGCHAIN_PROJECT="BCs BookNG"
 ```
 
 Then visit https://smith.langchain.com to see traces.
@@ -235,7 +235,7 @@ SURREAL_PASSWORD=$(openssl rand -base64 32)  # Generate secure password
 ### Add Password Protection
 
 ```env
-# Protect your Open Notebook instance
+# Protect your BCs BookNG instance
 OPEN_NOTEBOOK_PASSWORD=your_secure_password
 ```
 
@@ -248,7 +248,7 @@ API_URL=https://mynotebook.example.com
 
 ### Firewall Rules
 
-Restrict access to your Open Notebook:
+Restrict access to your BCs BookNG:
 - Port 8502 (frontend): Only from your IP
 - Port 5055 (API): Only from frontend
 - Port 8000 (SurrealDB): Never expose to internet
@@ -257,7 +257,7 @@ Restrict access to your Open Notebook:
 
 ## Web Scraping & Content Extraction
 
-Open Notebook uses multiple services for content extraction:
+BCs BookNG uses multiple services for content extraction:
 
 ### Firecrawl
 

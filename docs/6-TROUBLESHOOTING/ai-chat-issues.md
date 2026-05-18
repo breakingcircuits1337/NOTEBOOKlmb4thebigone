@@ -33,7 +33,7 @@ ollama list
 # NAME                   SIZE      MODIFIED
 # gemma3:12b            8.1 GB    2 months ago
 
-# The model name in Open Notebook must be EXACTLY "gemma3:12b"
+# The model name in BCs BookNG must be EXACTLY "gemma3:12b"
 # NOT "gemma3" or "gemma3-12b"
 ```
 
@@ -55,7 +55,7 @@ ollama list
 # and you have access to the model
 ```
 
-> **Tip:** This error often occurs when you delete a model from Ollama but forget to update the default models in Open Notebook. Always re-configure defaults after removing models.
+> **Tip:** This error often occurs when you delete a model from Ollama but forget to update the default models in BCs BookNG. Always re-configure defaults after removing models.
 
 ---
 
@@ -146,7 +146,7 @@ docker compose restart api
 
 ### Step 4: Verify in UI
 ```
-1. Open Open Notebook
+1. Open BCs BookNG
 2. Go to Settings → Models
 3. Select your provider
 4. Should show available models

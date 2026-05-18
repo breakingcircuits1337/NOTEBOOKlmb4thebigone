@@ -1,12 +1,12 @@
 # Reverse Proxy Configuration
 
-Deploy Open Notebook behind nginx, Caddy, Traefik, or other reverse proxies with custom domains and HTTPS.
+Deploy BCs BookNG behind nginx, Caddy, Traefik, or other reverse proxies with custom domains and HTTPS.
 
 ---
 
 ## Simplified Setup (v1.1+)
 
-Starting with v1.1, Open Notebook uses Next.js rewrites to simplify configuration. **You only need to proxy to one port** - Next.js handles internal API routing automatically.
+Starting with v1.1, BCs BookNG uses Next.js rewrites to simplify configuration. **You only need to proxy to one port** - Next.js handles internal API routing automatically.
 
 ### How It Works
 
@@ -72,7 +72,7 @@ That's it! Caddy handles HTTPS automatically.
 ```yaml
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - API_URL=https://notebook.example.com
@@ -88,7 +88,7 @@ services:
 
 ### Coolify
 
-1. Create new service with `lfnovo/open_notebook:v1-latest-single`
+1. Create new service with `breakingcircuits1337/bcs-book-ng:v1-latest-single`
 2. Set port to **8502**
 3. Add environment: `API_URL=https://your-domain.com`
 4. Enable HTTPS in Coolify
@@ -142,7 +142,7 @@ When `API_URL` is not set, the Next.js frontend:
 ```yaml
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     container_name: open-notebook
     environment:
@@ -264,11 +264,11 @@ location / {
 
 ### Remote Server Access (LAN/VPS)
 
-Accessing Open Notebook from a different machine on your network:
+Accessing BCs BookNG from a different machine on your network:
 
 **Step 1: Get your server IP**
 ```bash
-# On the server running Open Notebook:
+# On the server running BCs BookNG:
 hostname -I
 # or
 ifconfig | grep "inet "
@@ -285,7 +285,7 @@ API_URL=http://192.168.1.100:5055
 ```yaml
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - API_URL=http://192.168.1.100:5055
@@ -315,7 +315,7 @@ Host the API and frontend on different subdomains:
 ```yaml
 services:
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - API_URL=https://api.notebook.example.com
@@ -377,7 +377,7 @@ For complex deployments with separate frontend and API containers:
 ```yaml
 services:
   frontend:
-    image: lfnovo/open_notebook_frontend:v1-latest
+    image: breakingcircuits1337/bcs-book-ng-frontend:v1-latest
     pull_policy: always
     environment:
       - API_URL=https://notebook.example.com
@@ -385,7 +385,7 @@ services:
       - "8502:8502"
 
   api:
-    image: lfnovo/open_notebook_api:v1-latest
+    image: breakingcircuits1337/bcs-book-ng-api:v1-latest
     pull_policy: always
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -622,7 +622,7 @@ Error creating source. Please try again.
 When uploading files, your reverse proxy may reject the request due to body size limits *before* it reaches the application. Since the error happens at the proxy level, CORS headers are not included in the response.
 
 **Version Requirement:**
-- **Open Notebook v1.3.2+** is required for file uploads >10MB
+- **BCs BookNG v1.3.2+** is required for file uploads >10MB
 - Uses Next.js 16+ which supports the `proxyClientMaxBodySize` configuration option
 - Check your version: Settings → About (bottom of settings page)
 
@@ -689,7 +689,7 @@ When uploading files, your reverse proxy may reject the request due to body size
    }
    ```
 
-**Note:** Open Notebook's API includes CORS headers in error responses, but this only works for errors that reach the application. Proxy-level errors (like 413 from nginx) need to be configured at the proxy level.
+**Note:** BCs BookNG's API includes CORS headers in error responses, but this only works for errors that reach the application. Proxy-level errors (like 413 from nginx) need to be configured at the proxy level.
 
 ---
 
@@ -809,7 +809,7 @@ curl -H "Authorization: Bearer your-password-here" \
 
 ## Legacy Configurations (Pre-v1.1)
 
-If you're running Open Notebook **version 1.0.x or earlier**, you may need to use the legacy two-port configuration where you explicitly route `/api/*` to port 5055.
+If you're running BCs BookNG **version 1.0.x or earlier**, you may need to use the legacy two-port configuration where you explicitly route `/api/*` to port 5055.
 
 **Check your version:**
 ```bash

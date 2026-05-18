@@ -1,6 +1,6 @@
 # OpenAI-Compatible Providers
 
-Use any server that implements the OpenAI API format with Open Notebook. This includes LM Studio, Text Generation WebUI, vLLM, and many others.
+Use any server that implements the OpenAI API format with BCs BookNG. This includes LM Studio, Text Generation WebUI, vLLM, and many others.
 
 ---
 
@@ -14,7 +14,7 @@ POST /v1/embeddings
 POST /v1/audio/speech
 ```
 
-Open Notebook can connect to any server using this format.
+BCs BookNG can connect to any server using this format.
 
 ---
 
@@ -48,7 +48,7 @@ export OPENAI_COMPATIBLE_BASE_URL=http://localhost:1234/v1
 export OPENAI_COMPATIBLE_API_KEY=not-needed  # LM Studio doesn't require key
 ```
 
-### Step 3: Add Model in Open Notebook
+### Step 3: Add Model in BCs BookNG
 
 1. Go to **Settings** → **Models**
 2. Click **Add Model**
@@ -94,7 +94,7 @@ OPENAI_COMPATIBLE_API_KEY_STT=optional-api-key
 
 ## Docker Networking
 
-When Open Notebook runs in Docker and your compatible server runs on the host:
+When BCs BookNG runs in Docker and your compatible server runs on the host:
 
 ### macOS / Windows
 
@@ -138,7 +138,7 @@ services:
 python server.py --api --listen
 ```
 
-### Configure Open Notebook
+### Configure BCs BookNG
 
 ```bash
 OPENAI_COMPATIBLE_BASE_URL=http://localhost:5000/v1
@@ -158,7 +158,7 @@ services:
     command: --api --listen
 
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - OPENAI_COMPATIBLE_BASE_URL=http://text-gen:5000/v1
@@ -178,7 +178,7 @@ python -m vllm.entrypoints.openai.api_server \
   --port 8000
 ```
 
-### Configure Open Notebook
+### Configure BCs BookNG
 
 ```bash
 OPENAI_COMPATIBLE_BASE_URL=http://localhost:8000/v1
@@ -204,7 +204,7 @@ services:
               capabilities: [gpu]
 
   open-notebook:
-    image: lfnovo/open_notebook:v1-latest-single
+    image: breakingcircuits1337/bcs-book-ng:v1-latest-single
     pull_policy: always
     environment:
       - OPENAI_COMPATIBLE_BASE_URL=http://vllm:8000/v1
@@ -214,7 +214,7 @@ services:
 
 ---
 
-## Adding Models in Open Notebook
+## Adding Models in BCs BookNG
 
 ### Via Settings UI
 
@@ -284,7 +284,7 @@ Solutions:
 1. Check model is loaded in server
 2. Verify exact model name spelling
 3. List available models: curl http://localhost:1234/v1/models
-4. Update model name in Open Notebook
+4. Update model name in BCs BookNG
 ```
 
 ### Slow Responses
@@ -339,7 +339,7 @@ OPENAI_COMPATIBLE_BASE_URL_EMBEDDING=http://localhost:8080/v1
 OPENAI_COMPATIBLE_BASE_URL_TTS=http://localhost:8969/v1
 ```
 
-Add each as a separate model in Open Notebook settings.
+Add each as a separate model in BCs BookNG settings.
 
 ---
 

@@ -36,11 +36,7 @@ from api.routers import (
 from api.routers import commands as commands_router
 from open_notebook.database.async_migrate import AsyncMigrationManager
 
-# Import commands to register them in the API process
-try:
-    logger.info("Commands imported in API process")
-except Exception as e:
-    logger.error(f"Failed to import commands in API process: {e}")
+logger.info("Commands imported in API process")
 
 
 @asynccontextmanager

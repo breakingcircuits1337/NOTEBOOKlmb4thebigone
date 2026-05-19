@@ -1,5 +1,7 @@
 from typing import List, Literal, Optional
 
+VALID_NOTE_TYPES = ("human", "ai", "code_snippet")
+
 from fastapi import APIRouter, HTTPException, Query
 from loguru import logger
 
@@ -65,12 +67,12 @@ async def create_note(note_data: NoteCreate):
             title = result.get("output", "Untitled Note")
 
         # Validate note_type
-        note_type: Optional[Literal["human", "ai"]] = None
-        if note_data.note_type in ("human", "ai"):
+        note_type: Optional[Literal["human", "ai", "code_snippet"]] = None
+        if note_data.note_type in VALID_NOTE_TYPES:
             note_type = note_data.note_type  # type: ignore[assignment]
         elif note_data.note_type is not None:
             raise HTTPException(
-                status_code=400, detail="note_type must be 'human' or 'ai'"
+                status_code=400, detail=f"note_type must be one of: {', '.join(VALID_NOTE_TYPES)}"
             )
 
         new_note = Note(
@@ -143,11 +145,11 @@ async def update_note(note_id: str, note_update: NoteUpdate):
         if note_update.content is not None:
             note.content = note_update.content
         if note_update.note_type is not None:
-            if note_update.note_type in ("human", "ai"):
+            if note_update.note_type in VALID_NOTE_TYPES:
                 note.note_type = note_update.note_type  # type: ignore[assignment]
             else:
                 raise HTTPException(
-                    status_code=400, detail="note_type must be 'human' or 'ai'"
+                    status_code=400, detail=f"note_type must be one of: {', '.join(VALID_NOTE_TYPES)}"
                 )
 
         await note.save()

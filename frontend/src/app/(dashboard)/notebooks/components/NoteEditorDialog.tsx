@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import dynamic from 'next/dynamic'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCreateNote, useUpdateNote, useNote } from '@/lib/hooks/use-notes'
 import { QUERY_KEYS } from '@/lib/api/query-client'
 import { MarkdownEditor } from '@/components/ui/markdown-editor'
@@ -14,9 +16,46 @@ import { InlineEdit } from '@/components/common/InlineEdit'
 import { cn } from "@/lib/utils";
 import { useTranslation } from '@/lib/hooks/use-translation'
 
+const MonacoEditor = dynamic(() => import('@monaco-editor/react'), { ssr: false })
+
+const CODE_LANGUAGES = [
+  { value: 'plaintext', label: 'Plain Text' },
+  { value: 'python', label: 'Python' },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'html', label: 'HTML' },
+  { value: 'css', label: 'CSS' },
+  { value: 'sql', label: 'SQL' },
+  { value: 'shell', label: 'Shell / Bash' },
+  { value: 'json', label: 'JSON' },
+  { value: 'yaml', label: 'YAML' },
+  { value: 'markdown', label: 'Markdown' },
+  { value: 'java', label: 'Java' },
+  { value: 'c', label: 'C' },
+  { value: 'cpp', label: 'C++' },
+  { value: 'go', label: 'Go' },
+  { value: 'rust', label: 'Rust' },
+  { value: 'ruby', label: 'Ruby' },
+  { value: 'php', label: 'PHP' },
+  { value: 'swift', label: 'Swift' },
+  { value: 'kotlin', label: 'Kotlin' },
+  { value: 'r', label: 'R' },
+]
+
+function parseCodeContent(content: string): { language: string; code: string } {
+  const match = content.match(/^```(\w*)\n([\s\S]*)\n```$/)
+  if (match) return { language: match[1] || 'plaintext', code: match[2] }
+  return { language: 'plaintext', code: content }
+}
+
+function encodeCodeContent(language: string, code: string): string {
+  return `\`\`\`${language}\n${code}\n\`\`\``
+}
+
 const createNoteSchema = z.object({
   title: z.string().optional(),
   content: z.string().min(1, 'Content is required'),
+  language: z.string().optional(),
 })
 
 type CreateNoteFormData = z.infer<typeof createNoteSchema>
@@ -25,15 +64,19 @@ interface NoteEditorDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   notebookId: string
-  note?: { id: string; title: string | null; content: string | null }
+  note?: { id: string; title: string | null; content: string | null; note_type?: string | null }
+  defaultNoteType?: 'human' | 'code_snippet'
 }
 
-export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteEditorDialogProps) {
+export function NoteEditorDialog({ open, onOpenChange, notebookId, note, defaultNoteType = 'human' }: NoteEditorDialogProps) {
   const { t } = useTranslation()
   const createNote = useCreateNote()
   const updateNote = useUpdateNote()
   const queryClient = useQueryClient()
   const isEditing = Boolean(note)
+
+  const effectiveNoteType = note?.note_type ?? defaultNoteType
+  const isCodeSnippet = effectiveNoteType === 'code_snippet'
 
   // Ensure note ID has 'note:' prefix for API calls
   const noteIdWithPrefix = note?.id
@@ -48,28 +91,36 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
     formState: { errors },
     reset,
     setValue,
+    watch,
   } = useForm<CreateNoteFormData>({
     resolver: zodResolver(createNoteSchema),
     defaultValues: {
       title: '',
       content: '',
+      language: 'plaintext',
     },
   })
   const watchTitle = useWatch({ control, name: 'title' })
+  const watchLanguage = watch('language')
   const [isEditorFullscreen, setIsEditorFullscreen] = useState(false)
 
   useEffect(() => {
     if (!open) {
-      reset({ title: '', content: '' })
+      reset({ title: '', content: '', language: 'plaintext' })
       return
     }
 
     const source = fetchedNote ?? note
     const title = source?.title ?? ''
-    const content = source?.content ?? ''
+    const rawContent = source?.content ?? ''
 
-    reset({ title, content })
-  }, [open, note, fetchedNote, reset])
+    if (isCodeSnippet && rawContent) {
+      const { language, code } = parseCodeContent(rawContent)
+      reset({ title, content: code, language })
+    } else {
+      reset({ title, content: rawContent, language: 'plaintext' })
+    }
+  }, [open, note, fetchedNote, reset, isCodeSnippet])
 
   useEffect(() => {
     if (!open) return
@@ -82,28 +133,30 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
   }, [open])
 
   const onSubmit = async (data: CreateNoteFormData) => {
+    const finalContent = isCodeSnippet
+      ? encodeCodeContent(data.language || 'plaintext', data.content)
+      : data.content
+
     if (note) {
       await updateNote.mutateAsync({
         id: noteIdWithPrefix,
         data: {
           title: data.title || undefined,
-          content: data.content,
+          content: finalContent,
         },
       })
-      // Only invalidate notebook-specific queries if we have a notebookId
       if (notebookId) {
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.notes(notebookId) })
       }
     } else {
-      // Creating a note requires a notebookId
       if (!notebookId) {
         console.error('Cannot create note without notebook_id')
         return
       }
       await createNote.mutateAsync({
         title: data.title || undefined,
-        content: data.content,
-        note_type: 'human',
+        content: finalContent,
+        note_type: isCodeSnippet ? 'code_snippet' : 'human',
         notebook_id: notebookId,
       })
     }
@@ -117,6 +170,10 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
     onOpenChange(false)
   }
 
+  const monacoTheme = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'vs-dark'
+    : 'light'
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className={cn(
@@ -124,7 +181,9 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
           isEditorFullscreen && "!max-w-screen !max-h-screen border-none w-screen h-screen"
       )}>
         <DialogTitle className="sr-only">
-          {isEditing ? t.sources.editNote : t.sources.createNote}
+          {isEditing
+            ? (isCodeSnippet ? t.sources.editCodeSnippet : t.sources.editNote)
+            : (isCodeSnippet ? t.sources.createCodeSnippet : t.sources.createNote)}
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col">
           {isEditing && noteLoading ? (
@@ -133,43 +192,89 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
             </div>
           ) : (
             <>
-              <div className="border-b px-6 py-4">
+              <div className="border-b px-6 py-4 space-y-3">
                 <InlineEdit
                   id="note-title"
                   name="title"
                   value={watchTitle ?? ''}
                   onSave={(value) => setValue('title', value || '')}
                   placeholder={t.sources.addTitle}
-                  emptyText={t.sources.untitledNote}
+                  emptyText={isCodeSnippet ? t.sources.untitledSnippet : t.sources.untitledNote}
                   className="text-xl font-semibold"
                   inputClassName="text-xl font-semibold"
                 />
+                {isCodeSnippet && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">{t.sources.language}:</span>
+                    <Controller
+                      control={control}
+                      name="language"
+                      render={({ field }) => (
+                        <Select value={field.value ?? 'plaintext'} onValueChange={field.onChange}>
+                          <SelectTrigger className="w-48 h-8 text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {CODE_LANGUAGES.map((lang) => (
+                              <SelectItem key={lang.value} value={lang.value}>
+                                {lang.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className={cn(
-                  "flex-1 overflow-y-auto",
-                  !isEditorFullscreen && "px-6 py-4")
+                  "flex-1 overflow-hidden",
+                  !isEditorFullscreen && !isCodeSnippet && "px-6 py-4")
               }>
-                <Controller
-                  control={control}
-                  name="content"
-                  render={({ field }) => (
-                    <MarkdownEditor
-                      key={note?.id ?? 'new'}
-                      textareaId="note-content"
-                      value={field.value}
-                      onChange={field.onChange}
-                      height={420}
-                      placeholder={t.sources.writeNotePlaceholder}
-                      className={cn(
-                          "w-full h-full min-h-[420px] [&_.w-md-editor]:!static [&_.w-md-editor]:!w-full [&_.w-md-editor]:!h-full",
-                          !isEditorFullscreen && "rounded-md border"
-                      )}
-                    />
-                  )}
-                />
+                {isCodeSnippet ? (
+                  <Controller
+                    control={control}
+                    name="content"
+                    render={({ field }) => (
+                      <MonacoEditor
+                        height="420px"
+                        language={watchLanguage ?? 'plaintext'}
+                        value={field.value}
+                        onChange={(value) => field.onChange(value ?? '')}
+                        theme={monacoTheme}
+                        options={{
+                          minimap: { enabled: false },
+                          fontSize: 14,
+                          wordWrap: 'on',
+                          scrollBeyondLastLine: false,
+                          automaticLayout: true,
+                        }}
+                      />
+                    )}
+                  />
+                ) : (
+                  <Controller
+                    control={control}
+                    name="content"
+                    render={({ field }) => (
+                      <MarkdownEditor
+                        key={note?.id ?? 'new'}
+                        textareaId="note-content"
+                        value={field.value}
+                        onChange={field.onChange}
+                        height={420}
+                        placeholder={t.sources.writeNotePlaceholder}
+                        className={cn(
+                            "w-full h-full min-h-[420px] [&_.w-md-editor]:!static [&_.w-md-editor]:!w-full [&_.w-md-editor]:!h-full",
+                            !isEditorFullscreen && "rounded-md border"
+                        )}
+                      />
+                    )}
+                  />
+                )}
                 {errors.content && (
-                  <p className="text-sm text-red-600 mt-1">{errors.content.message}</p>
+                  <p className="text-sm text-red-600 mt-1 px-6">{errors.content.message}</p>
                 )}
               </div>
             </>
@@ -187,7 +292,7 @@ export function NoteEditorDialog({ open, onOpenChange, notebookId, note }: NoteE
                 ? isEditing ? `${t.common.saving}...` : `${t.common.creating}...`
                 : isEditing
                   ? t.sources.saveNote
-                  : t.sources.createNoteBtn}
+                  : (isCodeSnippet ? t.sources.createCodeSnippetBtn : t.sources.createNoteBtn)}
             </Button>
           </div>
         </form>

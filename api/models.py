@@ -170,7 +170,7 @@ class DefaultPromptUpdate(BaseModel):
 class NoteCreate(BaseModel):
     title: Optional[str] = Field(None, description="Note title")
     content: str = Field(..., description="Note content")
-    note_type: Optional[str] = Field("human", description="Type of note (human, ai)")
+    note_type: Optional[str] = Field("human", description="Type of note (human, ai, code_snippet)")
     notebook_id: Optional[str] = Field(
         None, description="Notebook ID to add the note to"
     )
@@ -179,7 +179,7 @@ class NoteCreate(BaseModel):
 class NoteUpdate(BaseModel):
     title: Optional[str] = Field(None, description="Note title")
     content: Optional[str] = Field(None, description="Note content")
-    note_type: Optional[str] = Field(None, description="Type of note (human, ai)")
+    note_type: Optional[str] = Field(None, description="Type of note (human, ai, code_snippet)")
 
 
 class NoteResponse(BaseModel):

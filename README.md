@@ -66,6 +66,7 @@ In a world dominated by Artificial Intelligence, having the ability to think �
 - 🎞️ **Create combined media** - Generate music + video concurrently and merge via ffmpeg
 - 🔍 **Search intelligently** - Full-text and vector search across all your content
 - 💬 **Chat with context** - AI conversations powered by your research
+- 💻 **Code Snippet Notes** - Save and syntax-highlight code in 20+ languages using the Monaco editor
 - 🌐 **Multi-language UI** - English, Portuguese, Chinese (Simplified & Traditional), and Japanese support
 - 🎨 **Theme Customization** - Dark, light, or system theme with 6 accent color presets, all persisted across sessions
 - 🖥️ **Desktop App** - Install as a PWA from any Chromium browser, or use the one-command Linux desktop launcher
@@ -238,7 +239,7 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **🎙️ Professional Podcast Generation**: Advanced multi-speaker podcasts with Episode Profiles
 - **🔍 Intelligent Search**: Full-text and vector search across all your content
 - **💬 Context-Aware Chat**: AI conversations powered by your research materials
-- **📝 AI-Assisted Notes**: Generate insights or write notes manually
+- **📝 AI-Assisted Notes**: Generate insights, write notes manually, or save code snippets with syntax highlighting via the Monaco editor
 - **🗨️ Source Chat**: Chat directly with a single source document — ask questions scoped to one PDF, web page, or file without full-notebook context
 
 ### Advanced Features
@@ -300,6 +301,7 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **Bookmark Integration**: Connect with your favorite bookmarking apps
 
 ### Recently Completed ✅
+- **Code Snippet Notes**: Save code directly as a note type — pick from 20+ languages, edit with Monaco editor (the VS Code engine), with syntax highlighting and monospace preview in the notes list
 - **AI Media Generation** *(BCs BookNG exclusive)*: Full music, video, and combined generation pipeline — Suno/Udio for music, RunwayML/Pika for video, smart routing by style keywords, concurrent generation with ffmpeg merging, live jobs dashboard with inline playback and auto-polling
 - **Theme Customization**: In-app accent color picker (6 presets: Blue, Purple, Green, Rose, Orange, Teal) with dark/light/system toggle, persisted to localStorage and flash-free on page load
 - **Desktop App / PWA**: Installable as a Progressive Web App from any Chromium browser; one-command Linux `.desktop` launcher via `scripts/install-desktop.sh`
